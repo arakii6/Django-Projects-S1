@@ -1,0 +1,49 @@
+{% extends "config.html" %}
+{% block start %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h2>Hey this is the Contact Page</h2>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card contact-form">
+                <div class="card-header">
+                    <h3 class="text-center">Contact Form</h3>
+                    <p class="text-center">Feel free to reach out to us!</p>
+                </div>
+                <div class="card-body">
+                    <form action="#" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" name="name" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" name="message" id="message" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Attach File</label>
+                            <input type="file" name="attachment" class="form-control" id="file" accept="image/*, application/pdf">
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'config.html' %}
+{% block start %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card recipe-form">
+                <div class="card-header">
+                    <!-- Form Name -->
+                    <h3 class="text-center">Sign In</h3>
+                    <!-- Form Description -->
+                    <p class="text-center">Please enter your credentials below.</p>
+                </div>
+                <div class="card-body">
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <!-- Display messages if any (e.g., success or warning messages) -->
+                        {% if messages %}
+                            {{ message.tags }}
+                            <div class="alert alert-light" role="alert">
+                                {% for message in messages %}
+                                    {{ message }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <!-- Form Fields -->
+                        <div class="mb-3">
+                            <label for="InputUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" name="sign-in-form_username" id="InputUsername" placeholder="Enter Username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="sign-in-form_password" id="InputPassword" placeholder="Enter Password">
+                        </div>
+                        <p>Don't have an account? <a href="/register">Register</a></p>
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

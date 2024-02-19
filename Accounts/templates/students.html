@@ -1,0 +1,95 @@
+{% extends 'config.html' %}
+{% block start %}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Student Details</h2>
+
+    <!-- Advanced Search Form -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="GET">
+                    <div class="input-group mb-3">
+                        <input type="text" name="search_term" class="form-control" placeholder="Search" value="{{ search_term }}">
+                        <select name="search_field" class="form-select">
+                            <option value="name">Name</option>
+                            <option value="department">Department</option>
+                            <option value="email">Email</option>
+                            <!-- Add more options for other fields if needed -->
+                        </select>
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Students List -->
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Student Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Department</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in queryset %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'report_card_page' student.studentid %}">{{ student.studentid }}</a> </td>
+                <td>{{ student.student_name }}</td>
+                <td>{{ student.student_age }}</td>
+                <td>{{ student.department }}</td>
+                <td>{{ student.student_email }}</td>
+                <td>{{ student.student_address }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="pagination justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if queryset.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1&{{ query_params }}" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ queryset.previous_page_number }}&{{ query_params }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for num in queryset.paginator.page_range %}
+                    <li class="page-item{% if num == queryset.number %} active{% endif %}">
+                        <a class="page-link" href="?page={{ num }}&{{ query_params }}">{{ num }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if queryset.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ queryset.next_page_number }}&{{ query_params }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ queryset.paginator.num_pages }}&{{ query_params }}" aria-label="Last">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+
+{% endblock %}

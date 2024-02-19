@@ -1,0 +1,68 @@
+{% extends "config.html" %}
+{% block start %}
+
+<style>
+  /* Style for the dynamic data table */
+  .dynamic-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+  }
+
+  .dynamic-table th,
+  .dynamic-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+  }
+
+  .dynamic-table th {
+      background-color: #f2f2f2;
+  }
+</style>
+
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+      <div class="col-md-6 text-center">
+        <h2>Hey this is the Homepage</h2>
+      </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+      <div class="col-md-6 text-center">
+          <h4>Below is a Dynamic Table:</h4>
+          <table class="table dynamic-table">
+              <thead>
+                  <tr>
+                      <th>Serial No.</th>
+                      <th>Name</th>
+                      <th>Age</th>
+                      <th>Eligible To Vote?</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for person in people %}
+                  <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ person.name }}</td>
+                      <td>{{ person.age }}</td>
+                      <td {% if person.age < 18 %} style="background: rgb(194, 30, 30)" {% endif %}>
+                          {% if person.age >= 18 %}
+                              👍
+                          {% else %}
+                              👎
+                          {% endif %}
+                      </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+{% endblock %}

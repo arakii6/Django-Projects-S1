@@ -1,0 +1,50 @@
+{% extends 'config.html' %}
+{% block start %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card recipe-form">
+                <div class="card-header">
+                    <!-- Form Name -->
+                    <h3 class="text-center">Register</h3>
+                    <!-- Form Description -->
+                    <p class="text-center">Please enter your details below.</p>
+                </div>
+                <div class="card-body">
+                    <form action="#" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!-- Display messages if any (e.g., success or warning messages) -->
+                        {% if messages %}
+                            {{ message.tags }}
+                            <div class="alert alert-light" role="alert">
+                                {% for message in messages %}
+                                    {{ message }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <!-- Form Fields -->
+                        <div class="mb-3">
+                            <label for="InputFirstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" name="register-form_firstname" id="InputFirstName" placeholder="Enter First Name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputLastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" name="register-form_lastname" id="InputlastName" placeholder="Enter Last Name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" name="register-form_username" id="InputUsername" placeholder="Enter Username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="register-form_password" id="InputPassword1" placeholder="Enter Password">
+                        </div>
+                        <p>Already have an account! <a href="/sign-in">Login</a></p> 
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

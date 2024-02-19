@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_name }}</title>
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            background-color: #f8f9fa; /* Light gray background */
+            padding: 15px;
+        }
+
+        .navbar-brand {
+            color: #343a40; /* Dark gray text for brand */
+            font-size: 24px;
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+        .nav-link {
+            color: #343a40; /* Dark gray text */
+            margin-right: 10px;
+        }
+
+        .btn-sign-in,
+        .btn-register {
+            margin-right: 15px; /* Added spacing between buttons */
+        }
+
+        .userdetails,
+        .btn-sign-out {
+            margin-right: 15px; /* Added spacing between buttons */
+        }
+
+        .btn-sign-in {
+            background-color: #28a745; /* Green for Sign In */
+            color: #fff; /* White text for Sign In */
+        }
+
+        .btn-sign-in:hover {
+            background-color: #218838; /* Darker green on hover */
+            color: #fff; /* White text for Sign In */ 
+        }
+
+        .btn-register {
+            background-color: #007bff; /* Blue for Register */
+            color: #fff; /* White text for Register */
+        }
+
+        .btn-register:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            color: #fff; /* White text for Register */ 
+        }
+
+        .btn-sign-out {
+            background-color: #b23b3b; /* Red for Sign Out */
+            color: #fff; /* White text for Sign Out */ 
+        }
+
+        .btn-sign-out:hover {
+            background-color: #a03030; /* Darker red on hover */
+            color: #fff; /* White text for Sign Out */ 
+        }
+    </style>
+</head>
+
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <!-- Brand -->
+        <a class="navbar-brand" href="{% url 'home_page' %}">Food App</a>
+
+        <!-- Navbar Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'recipe_page' %}">Recipes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about_page' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact_page' %}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'student_details_page' %}">Student Details</a>
+                </li>
+            </ul>
+
+            <!-- Right Side - Buttons -->
+            <ul class="navbar-nav ml-auto">
+
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <!-- Display user details in a card -->
+                    <p class="mb-1 userdetails">Welcome, {{ request.user }}</p>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'sign_out_page' %}" class="btn btn-sign-out">Sign Out</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'sign_in_page' %}" class="btn btn-sign-in">Sign In</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'register_page' %}" class="btn btn-register">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% block start %}
+{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-rZ76fEFMTLX16zInU3kFtDTTL+0HTGYoInOUGbRLehOU0WSh5eF6rFZm4uMMJgVZ" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+{% extends "config.html" %}
+{% block start %}
+
+<!-- Styling -->
+<style>
+    /* Style for form */
+    .recipe-form {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style for form field labels */
+    .form-label {
+        font-weight: bold;
+        color: #333; /* You can set the color you prefer */
+    }
+
+    /* Style for the recipe table */
+    .recipe-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .recipe-table th,
+    .recipe-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .recipe-table th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<!-- Recipe Form -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card recipe-form">
+                <div class="card-header">
+                    <!-- Form Name -->
+                    <h3 class="text-center">Recipe Form</h3>
+
+                    <!-- Form Description -->
+                    <p class="text-center">Please enter your recipe details below.</p>
+                </div>
+                <div class="card-body">
+                    <form action="#" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!-- Form Fields -->
+                        <div class="mb-3">
+                            <label for="recipeName" class="form-label">Recipe Name</label>
+                            <input name='add_form_recipe_name' type="text" class="form-control" id="recipeName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipeDescription" class="form-label">Recipe Description</label>
+                            <textarea class="form-control" id="recipeDescription" name="add_form_recipe_description" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipeImage" class="form-label">Recipe Image</label>
+                            <input type="file" name='add_form_recipe_image' class="form-control" id="recipeImage" accept="image/*" required>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <!-- CTA -->
+                            <button type="submit" class="btn btn-success">Add Recipe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Divider Line -->
+<hr class="mt-5 mb-4">
+
+<!-- Search Bar -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form>
+                <div class="input-group mb-3">
+                    <input type="text" name="search" class="form-control" placeholder="Search recipes...">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Recipe Table -->
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <table class="table recipe-table">
+                <!-- Column Names -->
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Recipe Name</th>
+                        <th>Recipe Description</th>
+                        <th>Recipe Image</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <!-- Logic To View, Update and Delete records-->
+                <tbody>
+                    {% for recipe in recipes %}
+                    <tr>
+                        <td>{{ recipe.id }}</td>
+                        <td>{{ recipe.recipe_name }}</td>
+                        <td>{{ recipe.recipe_description }}</td>
+                        <td><img src="/media/{{ recipe.recipe_image }}" alt="{{ recipe.recipe_name }}" style="max-width: 100px;"></td>
+                        <td>
+                            <a href="/update_recipe/{{ recipe.slug }}" class="btn btn-success">Update</a>
+                            <a href="/delete_recipe/{{ recipe.id }}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-rZ76fEFMTLX16zInU3kFtDTTL+0HTGYoInOUGbRLehOU0WSh5eF6rFZm4uMMJgVZ" crossorigin="anonymous"></script>
+
+{% endblock %}
