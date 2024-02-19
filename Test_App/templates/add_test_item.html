@@ -1,0 +1,39 @@
+{% extends 'config.html' %}
+{% block start %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card recipe-form">
+                <div class="card-header">
+                    <h3 class="text-center">Add Test Item</h3>
+                    <p class="text-center">Please enter your details below.</p>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" class="mt-3">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="{{ form.title.id_for_label }}" name="{{ form.title.name }}" value="{{ form.title.value }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.description.id_for_label }}" class="form-label">Description</label>
+                            <textarea class="form-control" id="{{ form.description.id_for_label }}" name="{{ form.description.name }}" rows="3">{{ form.description.value }}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.image.id_for_label }}" class="form-label">Image</label>
+                            <input type="file" class="form-control" id="{{ form.image.id_for_label }}" name="{{ form.image.name }}">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Add Test Item</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
